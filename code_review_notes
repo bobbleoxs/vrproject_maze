@@ -1,0 +1,63 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Coin : MonoBehaviour 
+{
+    public GameObject poof;
+    public GameObject coin;
+......
+
+*** Could also use a static variable here to keep track of the number of coins collected, and display it in a UI above the temple, or relative to the main camera maybe.
+
+The way that static variables work, is if you increment the coin count in one object, the change in value reflects across this variable across all objects of this class!
+
+***
+......
+ float xpos;
+    float ypos;
+    float zpos;
+
+    void Update()
+    {
+        transform.position = new Vector3(transform.position.x, 2 + Mathf.Sin(Time.time * 1.2f), transform.position.z);
+    }
+
+    public void OnCoinClicked() {
+
+        xpos = transform.position.x;
+        ypos = transform.position.y;
+        zpos = transform.position.z;
+
+        Object.Instantiate(poof, new Vector3(xpos, ypos, zpos), Quaternion.Euler(-90, 0, 0));
+***
+ just pass transform.position directly here instead of creating a new Vector3.
+***
+......
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Key : MonoBehaviour 
+{
+    public GameObject poof;
+    public GameObject key;
+    public Door door;
+	
+***
+can also get objects by their tag in Inspector as:
+GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
+***
+
+ void Update()
+	{
+        transform.position = new Vector3(transform.position.x, 4 + Mathf.Sin(Time.time * 1.5f), transform.position.z);
+    }
+
+	public void OnKeyClicked()
+	{
+        Object.Instantiate(poof, new Vector3(0.4f, 5.12f, 61.3f), Quaternion.Euler(-90, 0, 0));
+***
+A better and more versatile approach would be to pass transform.position here directly instead of hard-coding the coordinates.
+***
+
